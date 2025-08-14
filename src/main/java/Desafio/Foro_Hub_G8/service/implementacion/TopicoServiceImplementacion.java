@@ -1,33 +1,3 @@
-//package Desafio.Foro_Hub_G8.service.implementacion;
-//
-//import Desafio.Foro_Hub_G8.dto.DatosCreacionTopico;
-//import Desafio.Foro_Hub_G8.model.Topico;
-//import Desafio.Foro_Hub_G8.repository.TopicoRepository;
-//import Desafio.Foro_Hub_G8.service.TopicoService;
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class TopicoServiceImplementacion implements TopicoService {
-//
-//        private final TopicoRepository topicoRepository;
-//
-//        public TopicoServiceImplementacion(TopicoRepository topicoRepository) {
-//            this.topicoRepository = topicoRepository;
-//        }
-//
-//        @Override
-//        public Topico crearTopico(DatosCreacionTopico datos) {
-//            Topico topico = new Topico();
-//            topico.setTitulo(datos.titulo());
-//            topico.setMensaje(datos.mensaje());
-//            topico.setAutor(datos.autor());
-//            topico.setCurso(datos.curso());
-//
-//            return topicoRepository.save(topico);
-//        }
-//
-//}
-
 package Desafio.Foro_Hub_G8.service.implementacion;
 
 import Desafio.Foro_Hub_G8.dto.DatosCreacionTopico;
@@ -50,8 +20,6 @@ public class TopicoServiceImplementacion implements TopicoService {
 
     @Override
     public Topico crearTopico(DatosCreacionTopico datos) {
-        // En tu proyecto final, podrías querer manejar la validación de si el tópico
-        // ya existe aquí antes de guardar.
         Topico topico = new Topico(datos);
         return topicoRepository.save(topico);
     }
