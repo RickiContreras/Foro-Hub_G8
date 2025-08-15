@@ -1,6 +1,7 @@
 package Desafio.Foro_Hub_G8.service.implementacion;
 
 import Desafio.Foro_Hub_G8.dto.DatosCreacionTopico;
+import Desafio.Foro_Hub_G8.excepcion.ValidacionDeIntegridad;
 import Desafio.Foro_Hub_G8.model.Topico;
 import Desafio.Foro_Hub_G8.repository.TopicoRepository;
 import Desafio.Foro_Hub_G8.service.TopicoService;
@@ -20,6 +21,10 @@ public class TopicoServiceImplementacion implements TopicoService {
 
     @Override
     public Topico crearTopico(DatosCreacionTopico datos) {
+        // Validación de duplicados
+        if (topicoRepository.existsByTituloAndMensaje(datos.titulo(), datos.mensaje())) {
+            throw new ValidacionDeIntegridad("Ya existe un tópico con el mismo título y mensaje.");
+        }
         Topico topico = new Topico(datos);
         return topicoRepository.save(topico);
     }
@@ -27,7 +32,7 @@ public class TopicoServiceImplementacion implements TopicoService {
     @Override
     public Page<Topico> obtenerTodosLosTopicos(Pageable paginacion) {
         // Spring Data JPA se encarga de la paginación y ordenamiento automáticamente
-        return topicoRepository.findAll(paginacion);
+                return topicoRepository.findAll(paginacion);
     }
 
     @Override
